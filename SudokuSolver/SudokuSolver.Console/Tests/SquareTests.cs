@@ -27,9 +27,9 @@ namespace SudokuSolver.Console.Tests
         }
 
         [Test]
-        public void Square_CreateNew_InitialValueBetween1And9_ValueIsSet(
+        public void Square_CreateNew_InitialValueBetween0And9_ValueIsSet(
             [Values(true, false)] bool isChangeable, 
-            [Range(1, 9, 1)] int testValue)
+            [Range(0, 9, 1)] int testValue)
         {
             var square = new Square(isChangeable, testValue);
             square.TryChangeValue(testValue);
@@ -37,12 +37,10 @@ namespace SudokuSolver.Console.Tests
             square.Value.Should().Be(testValue);
         }
 
-        [TestCase(-1)]
-        [TestCase(0)]
-        [TestCase(10)]
-        public void Square_CreateNew_InitialValueLessThan1OrGreaterThan9_ThrowsException(
+        [Test]
+        public void Square_CreateNew_InitialValueLessThan0OrGreaterThan9_ThrowsException(
             [Values(true, false)] bool isChangeable,
-            int testValue)
+            [Values(-1, 10)] int testValue)
         {
             Assert.Throws<ArgumentException>(() =>
             {
@@ -51,8 +49,8 @@ namespace SudokuSolver.Console.Tests
         }
 
         [Test]
-        public void Square_ValueIsChangeable_TryChangeValue_Between1And9_ValueIsChanged(
-            [Range(1, 9, 1)] int testValue)
+        public void Square_ValueIsChangeable_TryChangeValue_Between0And9_ValueIsChanged(
+            [Range(0, 9, 1)] int testValue)
         {
             const bool isChangeable = true;
             var square = new Square(isChangeable);
@@ -62,8 +60,8 @@ namespace SudokuSolver.Console.Tests
         }
 
         [Test]
-        public void Square_ValueIsChangeable_TryChangeValue_Between1And9_ReturnsTrue(
-            [Range(1, 9, 1)] int testValue)
+        public void Square_ValueIsChangeable_TryChangeValue_Between0And9_ReturnsTrue(
+            [Range(0, 9, 1)] int testValue)
         {
             const bool isChangeable = true;
             var square = new Square(isChangeable);
@@ -72,10 +70,8 @@ namespace SudokuSolver.Console.Tests
             result.Should().BeTrue();           
         }
 
-        [TestCase(-1)]
-        [TestCase(0)]
-        [TestCase(10)]
-        public void Square_ValueIsChangeable_TryChangeValue_LessThan1OrGreaterThan9_ThrowsException(int testValue)
+        public void Square_ValueIsChangeable_TryChangeValue_LessThan0OrGreaterThan9_ThrowsException(
+            [Values(-1, 10)] int testValue)
         {
             const bool isChangeable = true;
             var square = new Square(isChangeable);
@@ -84,8 +80,8 @@ namespace SudokuSolver.Console.Tests
         }
 
         [Test]
-        public void Square_ValueIsNotChangeable_TryChangeValue_Between1And9_ValueDoesNotChange(
-            [Range(1, 9, 1)] int testValue)
+        public void Square_ValueIsNotChangeable_TryChangeValue_Between0And9_ValueDoesNotChange(
+            [Range(0, 9, 1)] int testValue)
         {
             const bool isChangeable = false;
             var square = new Square(isChangeable);
@@ -97,8 +93,8 @@ namespace SudokuSolver.Console.Tests
         }
 
         [Test]
-        public void Square_ValueIsNotChangeable_TryChangeValue_Between1And9_ReturnsFalse(
-            [Range(1, 9, 1)] int testValue)
+        public void Square_ValueIsNotChangeable_TryChangeValue_Between0And9_ReturnsFalse(
+            [Range(0, 9, 1)] int testValue)
         {
             const bool isChangeable = false;
             var square = new Square(isChangeable);
