@@ -2,18 +2,17 @@
 {
     public class Board
     {
-        private const int NumberOfThreeByThrees = 3;
-        private const int NumberOfOneByNines = 9;
+        private const int NumberOfSets = 9;
 
-        private ThreeByThree[,] threeByThrees;
-        private OneByNine[] rows;
-        private OneByNine[] columns;
+        private SetOfSquares[] threeByThrees;
+        private SetOfSquares[] rows;
+        private SetOfSquares[] columns;
 
         public Board()
         {
-            threeByThrees = new ThreeByThree[NumberOfThreeByThrees, NumberOfThreeByThrees];
-            rows = new OneByNine[NumberOfOneByNines];
-            columns = new OneByNine[NumberOfOneByNines];
+            threeByThrees = new SetOfSquares[NumberOfSets];
+            rows = new SetOfSquares[NumberOfSets];
+            columns = new SetOfSquares[NumberOfSets];
         }
     }
 }

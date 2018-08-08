@@ -55,12 +55,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Models\Board.cs" />
-    <Compile Include="Models\OneByNine.cs" />
+    <Compile Include="Models\SetOfSquares.cs" />
     <Compile Include="Models\Square.cs" />
-    <Compile Include="Models\ThreeByThree.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Tests\SquareTests.cs" />
+    <Compile Include="Tests\SetOfSquaresTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
