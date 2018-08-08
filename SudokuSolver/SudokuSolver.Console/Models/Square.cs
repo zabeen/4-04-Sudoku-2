@@ -9,7 +9,8 @@ namespace SudokuSolver.Console.Models
         private const int MaxPermittedValue = 9;
 
         public bool ValueIsChangeable { get; }
-        public int? Value { get; private set; }
+        public int Value { get; private set; }
+        public bool IsEmpty() => Value == EmptySquareValue;
 
         public Square(bool valueIsChangeable, int value = EmptySquareValue)
         {

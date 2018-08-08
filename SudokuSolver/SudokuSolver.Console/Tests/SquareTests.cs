@@ -102,5 +102,45 @@ namespace SudokuSolver.Console.Tests
 
             result.Should().BeFalse();
         }
+
+        [Test]
+        public void Square_IsEmpty_WhenValueNotSet_ReturnsTrue()
+        {
+            const bool isChangeable = true;
+            var square = new Square(isChangeable);
+
+            square.IsEmpty().Should().BeTrue();
+        }
+
+        [Test]
+        public void Square_IsEmpty_WhenValueChangedToZero_ReturnsTrue()
+        {
+            const bool isChangeable = true;
+            var square = new Square(isChangeable, 1);
+            square.TryChangeValue(0);
+
+            square.IsEmpty().Should().BeTrue();
+        }
+
+        [Test]
+        public void Square_IsEmpty_WhenValueSetToPermittedNonZeroNumber_ReturnsFalse(
+            [Range(1, 9, 1)] int testValue)
+        {
+            const bool isChangeable = true;
+            var square = new Square(isChangeable, testValue);
+
+            square.IsEmpty().Should().BeFalse();
+        }
+
+        [Test]
+        public void Square_IsEmpty_WhenValueChangedToPermittedNonZeroNumber_ReturnsFalse(
+            [Range(1, 9, 1)] int testValue)
+        {
+            const bool isChangeable = true;
+            var square = new Square(isChangeable);
+            square.TryChangeValue(testValue);
+
+            square.IsEmpty().Should().BeFalse();
+        }
     }
 }
