@@ -11,7 +11,7 @@
             Value = value;
         }
 
-        public bool TrySetValue(int value)
+        public bool TryChangeValue(int value)
         {
             return false;
         }
