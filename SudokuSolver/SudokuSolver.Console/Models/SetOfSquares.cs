@@ -42,8 +42,8 @@ namespace SudokuSolver.Console.Models
         {
             if (index < 0 || index >= NumberOfSquares)
             {
-                throw new ArgumentException(
-                    $"Index is out of bounds; should be between 0 and {NumberOfSquares-1}");
+                throw new IndexOutOfRangeException(
+                    $"Index is out of range; should be between 0 and {NumberOfSquares-1}");
             }
 
             if (squares.Any(s => s.Value == value))

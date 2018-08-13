@@ -95,7 +95,7 @@ namespace SudokuSolver.Console.Tests
 
             var set = new SetOfSquares(squares);
 
-            Assert.Throws<ArgumentException>(() =>
+            Assert.Throws<IndexOutOfRangeException>(() =>
             {
                 var result = set.TryChangeSquareValue(testIndex, 0);
             });
