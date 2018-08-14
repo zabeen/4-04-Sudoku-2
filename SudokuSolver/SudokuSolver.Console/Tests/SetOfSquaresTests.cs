@@ -10,7 +10,7 @@ namespace SudokuSolver.Console.Tests
     public class SetOfSquaresTests
     {
         [Test]
-        public void SetOfSquares_CreateNew_PassInEmptySquareArray_ThrowsException()
+        public void SetOfSquares_CreateNew_EmptySquareArray_ThrowsException()
         {
             var squares = new Square[] { };
 
@@ -21,7 +21,7 @@ namespace SudokuSolver.Console.Tests
         }
 
         [Test]
-        public void SetOfSquares_CreateNew_PassInEmptyNineSquareArray_ThrowsException()
+        public void SetOfSquares_CreateNew_EmptyNineSquareArray_ThrowsException()
         {
             var squares = new Square[9];
 
@@ -32,20 +32,20 @@ namespace SudokuSolver.Console.Tests
         }
 
         [Test]
-        public void SetOfSquares_CreateNew_PassInNonEmptyNineSquareArray_WithDuplicateNonZeroValues_ThrowsException(
+        public void SetOfSquares_CreateNew_NonEmptyNineSquareArray_WithDuplicateNonZeroValues_ThrowsException(
             [Range(1, 9, 1)] int repeatedValue)
         {
             var squares = new[]
             {
-                new Square(true, repeatedValue),
-                new Square(true, repeatedValue),
-                new Square(true),
-                new Square(true),
-                new Square(true),
-                new Square(true),
-                new Square(true),
-                new Square(true),
-                new Square(true)
+                new Square(repeatedValue),
+                new Square(repeatedValue),
+                new Square(),
+                new Square(),
+                new Square(),
+                new Square(),
+                new Square(),
+                new Square(),
+                new Square()
             };
 
             Assert.Throws<ArgumentException>(() =>
@@ -55,19 +55,19 @@ namespace SudokuSolver.Console.Tests
         }
 
         [Test]
-        public void SetOfSquares_CreateNew_PassInNonEmptyNineSquareArray_WithUniqueNonZeroValues_NoExceptionThrown()
+        public void SetOfSquares_CreateNew_NonEmptyNineSquareArray_WithUniqueNonZeroValues_NoExceptionThrown()
         {
             var squares = new[]
             {
-                new Square(true, 1),
-                new Square(true, 2),
-                new Square(true, 3),
-                new Square(true, 4),
-                new Square(true, 5),
-                new Square(true, 6),
-                new Square(true, 7),
-                new Square(true, 8),
-                new Square(true, 9)
+                new Square(1),
+                new Square(2),
+                new Square(3),
+                new Square(4),
+                new Square(5),
+                new Square(6),
+                new Square(7),
+                new Square(8),
+                new Square(9)
             };
 
             Assert.DoesNotThrow(() =>
@@ -82,15 +82,15 @@ namespace SudokuSolver.Console.Tests
         {
             var squares = new[]
             {
-                new Square(false),
-                new Square(false),
-                new Square(false),
-                new Square(false),
-                new Square(false),
-                new Square(false),
-                new Square(false),
-                new Square(false),
-                new Square(false)
+                new Square(),
+                new Square(),
+                new Square(),
+                new Square(),
+                new Square(),
+                new Square(),
+                new Square(),
+                new Square(),
+                new Square()
             };
 
             var set = new SetOfSquares(squares);
@@ -107,90 +107,98 @@ namespace SudokuSolver.Console.Tests
         {
             var squares = new[]
             {
-                new Square(false),
-                new Square(false),
-                new Square(false),
-                new Square(false),
-                new Square(false),
-                new Square(false),
-                new Square(false),
-                new Square(false),
-                new Square(false)
+                new Square(1),
+                new Square(2),
+                new Square(3),
+                new Square(4),
+                new Square(5),
+                new Square(6),
+                new Square(7),
+                new Square(8),
+                new Square(9)
             };
 
             var set = new SetOfSquares(squares);
-            var result = set.TryChangeSquareValue(0, testValue);
+
+            const int testSquare = 0;
+            var result = set.TryChangeSquareValue(testSquare, testValue);
 
             result.Should().BeFalse();
         }
 
         [Test]
-        public void SetOfSquares_TryChangeSquareValue_ChangeableSquare_NonpermittedValue_ThrowsException(
+        public void SetOfSquares_TryChangeSquareValue_SquareIsChangeable_ButNonPermittedValue_ThrowsException(
             [Values(-1, 10)] int testValue)
         {
             var squares = new[]
             {
-                new Square(true),
-                new Square(false),
-                new Square(false),
-                new Square(false),
-                new Square(false),
-                new Square(false),
-                new Square(false),
-                new Square(false),
-                new Square(false)
+                new Square(),
+                new Square(),
+                new Square(),
+                new Square(),
+                new Square(),
+                new Square(),
+                new Square(),
+                new Square(),
+                new Square()
             };
 
             var set = new SetOfSquares(squares);
 
+            const int testSquare = 0;
+
             Assert.Throws<ArgumentException>(() =>
             {
-                var result = set.TryChangeSquareValue(0, testValue);
+                var result = set.TryChangeSquareValue(testSquare, testValue);
             });
         }
 
         [Test]
-        public void SetOfSquares_TryChangeSquareValue_ChangeableSquare_PermittedValue_ValueAlreadyExistsInSet_ReturnsFalse(
+        public void SetOfSquares_TryChangeSquareValue_SquareIsChangeable_AndPermittedValue_ButValueAlreadyExistsInSet_ReturnsFalse(
             [Range(1, 9, 1)] int testValue)
         {
             var squares = new[]
             {
-                new Square(true),
-                new Square(false, testValue),
-                new Square(false),
-                new Square(false),
-                new Square(false),
-                new Square(false),
-                new Square(false),
-                new Square(false),
-                new Square(false)
+                new Square(),
+                new Square(testValue),
+                new Square(),
+                new Square(),
+                new Square(),
+                new Square(),
+                new Square(),
+                new Square(),
+                new Square()
             };
 
             var set = new SetOfSquares(squares);
-            var result = set.TryChangeSquareValue(0, testValue);
+
+            const int testSquare = 0;
+            var result = set.TryChangeSquareValue(testSquare, testValue);
 
             result.Should().BeFalse();
         }
 
         [Test]
-        public void SetOfSquares_TryChangeSquareValue_ChangeableSquare_PermittedValue_ValueUniqueInSet_ReturnsTrue(
+        public void SetOfSquares_TryChangeSquareValue_SquareIsChangeable_AndPermittedValue_AndValueUniqueInSet_ReturnsTrue(
             [Range(1, 9, 1)] int testValue)
         {
             var squares = new[]
             {
-                new Square(true),
-                new Square(false),
-                new Square(false),
-                new Square(false),
-                new Square(false),
-                new Square(false),
-                new Square(false),
-                new Square(false),
-                new Square(false)
+                new Square(),
+                new Square(),
+                new Square(),
+                new Square(),
+                new Square(),
+                new Square(),
+                new Square(),
+                new Square(),
+                new Square()
             };
 
             var set = new SetOfSquares(squares);
-            var result = set.TryChangeSquareValue(0, testValue);
+
+            const int testSquare = 0;
+            var result = set.TryChangeSquareValue(testSquare, testValue);
 
             result.Should().BeTrue();
         }

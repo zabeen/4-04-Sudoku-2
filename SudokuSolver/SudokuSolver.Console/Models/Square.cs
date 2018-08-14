@@ -10,13 +10,16 @@ namespace SudokuSolver.Console.Models
 
         public bool ValueIsChangeable { get; }
         public int Value { get; private set; }
-        public bool IsEmpty() => Value == EmptySquareValue;
+        public bool IsEmpty() => IsEmptySquareValue(Value);
 
-        public Square(bool valueIsChangeable, int value = EmptySquareValue)
+        public Square(int value = EmptySquareValue)
         {
-            CheckValue(value);
-
-            ValueIsChangeable = valueIsChangeable;
+            if (!IsEmptySquareValue(value))
+            {
+                CheckValue(value);
+            }
+            
+            ValueIsChangeable = IsEmptySquareValue(value);
             Value = value;
         }
 
@@ -34,11 +37,16 @@ namespace SudokuSolver.Console.Models
 
         private static void CheckValue(int value)
         {
-            if (value != EmptySquareValue && (value < MinPermittedValue || value > MaxPermittedValue))
+            if (value < MinPermittedValue || value > MaxPermittedValue)
             {
                 throw new ArgumentException(
                     $"{value} is not a permitted value; should be in range: {MinPermittedValue} - {MaxPermittedValue}.");
             }
+        }
+
+        private static bool IsEmptySquareValue(int value)
+        {
+            return value == EmptySquareValue;
         }
     }
 }
