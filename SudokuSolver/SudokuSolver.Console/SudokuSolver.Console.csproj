@@ -59,6 +59,7 @@
     <Compile Include="Models\Square.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Tests\BoardTests.cs" />
     <Compile Include="Tests\SquareTests.cs" />
     <Compile Include="Tests\SetOfSquaresTests.cs" />
   </ItemGroup>
